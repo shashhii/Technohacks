@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://verify.technohacks.co.in/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Verification Portal - TechnoHacks Solutions Pvt. Ltd.</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #E0ECF5;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 90%;
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(128, 0, 128, 0.5);
+        }
+
+        /* Logo */
+        .logo {
+            width: 190px;
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 22px;
+            color: #800080; /* Purple */
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        /* Form */
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            border: 2px solid #800080;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-verify {
+            background-color: blue;
+            color: white;
+        }
+
+        .btn-verify:hover {
+            background-color:rgb(0, 83, 138);
+        }
+
+        .btn-green {
+            background-color: green;
+            color: white;
+            width: 48%;
+            margin: 5px;
+        }
+
+        .btn-green:hover {
+            background-color: darkgreen;
+        }
+
+        /* Error Message */
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        /* Certificate Details */
+        .certificate-info {
+            margin-top: 20px;
+            background: #f4f4f4;
+            color: black;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 8px rgba(128, 0, 128, 0.5);
+            text-align: left;
+        }
+
+        .certificate-info h3 {
+            text-align: center;
+        }
+
+        .certificate-info p {
+            font-size: 14px;
+            margin: 8px 0;
+            padding-left: 10px;
+        }
+
+        /* Footer Buttons */
+        .footer-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+               
+            }
+
+            h1 {
+                font-size: 14px;
+            }
+
+            h2 {
+                font-size: 19px;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Logo -->
+    <img src="logo.png" alt="Technohacks Logo" class="logo">
+    
+    <!-- Company Name -->
+    <h1>TechnoHacks Solutions Pvt. Ltd.</h1>
+
+    <!-- Portal Title -->
+    <h2>Certificate Verification Portal</h2>
+
+    <!-- Certificate Verification Form -->
+    <form id="verifyForm" onsubmit="return verifyCertificate(event)">
+        <input type="text" id="certificate_id" name="certificate_id" placeholder="Enter Certificate ID" required>
+        <button type="submit" class="btn btn-verify">Verify</button>
+    </form>
+
+    <!-- Error Message -->
+    <div id="errorMsg" class="error" style="display:none;">Invalid Certificate ID</div>
+    
+    <!-- Display Certificate Details -->
+            <div id="certificateDetails" class="certificate-info" style="display:none;">
+            <img style="width:100px; display:block; margin:0 auto;" src="logo.gif" alt="Technohacks Logo">
+            <h3 style="color:green">Certificate Successfully Verified!</h3>
+            <h3 style="color:Purple">Certificate Details</h3>
+            <p><strong>🆔 Certificate ID:</strong> <span id="displayCertId"></span></p>
+            <p><strong>👤 Name:</strong> <span id="displayName"></span></p>
+            <p><strong>💻 Domain:</strong> <span id="displayDomain"></span></p>
+            <p><strong>📅 Start Date:</strong> 23/07/2025</p>
+            <p><strong>📅 End Date:</strong> 22/08/2025</p>
+            <p><strong>🎓 Batch Name:</strong> Batch 99</p>
+            <p><strong>🏅 Certificate Type:</strong> Internship Certificate</p>
+        </div>
+    
+    <!-- Footer Buttons -->
+    <div class="footer-buttons">
+        <button class="btn btn-green" onclick="goBack()">⬅ Go Back</button>
+        <button class="btn btn-green" onclick="window.location.href='https://technohacks.co.in/internships/'">🎓 Apply for Internship</button>
+    </div>
+</div>
+
+<script>
+function verifyCertificate(event) {
+    event.preventDefault();
+    const certId = document.getElementById('certificate_id').value.trim();
+    const details = document.getElementById('certificateDetails');
+    const error = document.getElementById('errorMsg');
+    
+    const certificates = {
+        'TH1064662': { name: 'Shashikumar', domain: 'App Development' },
+        'TH1065731': { name: 'Srujan M', domain: 'Web Development' },
+        'TH1044398': { name: 'Himanth M', domain: 'Front-end Engineer' }
+    };
+    
+    if (certificates[certId]) {
+        document.getElementById('displayCertId').textContent = certId;
+        document.getElementById('displayName').textContent = certificates[certId].name;
+        document.getElementById('displayDomain').textContent = certificates[certId].domain;
+        details.style.display = 'block';
+        error.style.display = 'none';
+    } else {
+        details.style.display = 'none';
+        error.style.display = 'block';
+    }
+    return false;
+}
+
+function goBack() {
+    document.getElementById('certificate_id').value = '';
+    document.getElementById('certificateDetails').style.display = 'none';
+    document.getElementById('errorMsg').style.display = 'none';
+}
+</script>
+
+</body></html>
